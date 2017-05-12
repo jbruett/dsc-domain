@@ -15,10 +15,10 @@ configuration NewDomain {
     Import-DscResource -ModuleName xActiveDirectory, xTimeZone, PSDesiredStateConfiguration, xNetworking, xComputerManagement
 
     Node $AllNodes.NodeName 
-    {
+ {
         LocalConfigurationManager {
-            ActionAfterReboot  = 'ContinueConfiguration'
-            ConfigurationMode  = 'ApplyOnly'
+            ActionAfterReboot = 'ContinueConfiguration'
+            ConfigurationMode = 'ApplyOnly'
             RebootNodeIfNeeded = $true
         }
         
