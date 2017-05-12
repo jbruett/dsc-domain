@@ -15,3 +15,5 @@ Get-Item -Path "$ProjectRoot\userdata.ps1",
 
 #Publish zip as artifact
 Push-AppveyorArtifact $ProjectRoot\DomainMof.zip -Verbose
+
+#update
