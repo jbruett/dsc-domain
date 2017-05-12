@@ -88,7 +88,7 @@ configuration NewDomain {
 NewDomain -ConfigurationData $ConfigData -safemodeAdministratorCred (Get-Credential -UserName '(Password Only)' -Message "New Domain Safe Mode Administrator Password") -domainCred (Get-Credential -UserName contoso\administrator -Message "New Domain Admin Credential") -DomainDnsAddress '10.0.8.5'
 
 # Make sure that LCM is set to continue configuration after reboot
-Set-DSCLocalConfigurationManager -Path .\NewDomain –Verbose
-            
-# Build the domain            
+Set-DSCLocalConfigurationManager -Path .\NewDomain -Verbose
+
+# Build the domain
 Start-DscConfiguration -Wait -Force -Path .\NewDomain -Verbose
