@@ -1,5 +1,5 @@
 #Import the Configuration Script
-Import-Module '.\developers-world\demo\Generation\Mof\ConfigurationScript.ps1'
+Import-Module '.\NewDomain\NewDomain.ps1'
 
 #Call The Configuration Script passing in our Configuration Data
 Main -OutputPath $ProjectRoot -ConfigurationData '.\NewDomain\ConfigurationData.psd1'
