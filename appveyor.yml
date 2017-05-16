@@ -27,4 +27,4 @@ deploy:
     secure: 6ivsBUdqJkVP/0qkLLF4E1q4uLJDcT/G8NCwddbiBakV/32GemiesxR+3AmUTfmh
   bucket: jb2w-powershell-dsc-mofs
   region: us-west-2
-  artifact: Mofs.zip
+  artifact: DomainMof.zip
