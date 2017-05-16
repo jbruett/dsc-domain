@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "mwrock/Windows2016"
+    config.vm.provider "hyperv" do |h|
+        h.vm.define "primary" do |pdc|
+            pdc.vmname = "dc1"
+            pdc.cpus = 2
+            pdc.memory = 2048
+            pdc.differencingdisk = true
+        end
+    end
+end
