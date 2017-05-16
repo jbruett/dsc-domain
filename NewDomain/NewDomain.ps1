@@ -86,8 +86,8 @@ configuration NewDomain {
 
 $SafemodeCred = New-Object -TypeName pscredential -argumentlist "null", (Convertto-securestring -String $env:safemode_password -AsPlainText -Force)
 $DomainCred = New-Object -TypeName pscredential -ArgumentList "contoso\administrator", (ConvertTo-SecureString -String $env:domain_password -AsPlainText -Force)
-$ConfigData = get-content -path .\NewDomain\ConfigurationData.psd1
-NewDomain -ConfigurationData $ConfigData -SafemodeAdministratorCred $SafemodeCred -domainCred $DomainCred -DomainDnsAddress '10.0.8.5', '8.8.4.4'
+
+NewDomain -ConfigurationData .\NewDomain\ConfigurationData.psd1 -SafemodeAdministratorCred $SafemodeCred -domainCred $DomainCred -DomainDnsAddress '10.0.8.5', '8.8.4.4'
 
 # Make sure that LCM is set to continue configuration after reboot
 Set-DSCLocalConfigurationManager -Path .\NewDomain -Verbose
