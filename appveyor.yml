@@ -19,6 +19,9 @@ after_test:
 branches:
   only:
     - master
+artifacts:
+  path: '.\DomainMof.zip'
+  name: zip
 deploy:
   provider: S3
   access_key_id:
@@ -27,4 +30,4 @@ deploy:
     secure: 6ivsBUdqJkVP/0qkLLF4E1q4uLJDcT/G8NCwddbiBakV/32GemiesxR+3AmUTfmh
   bucket: jb2w-powershell-dsc-mofs
   region: us-west-2
-  artifact: DomainMof.zip
+  artifact: zip
