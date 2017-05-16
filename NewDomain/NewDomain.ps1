@@ -85,7 +85,7 @@ configuration NewDomain {
 # Configuration Data for AD
 
 $SafemodeCred = New-Object -TypeName pscredential -argumentlist "null", (Convertto-securestring -String $env:safemode_password -AsPlainText -Force)
-$DomainCred = New-Object -TypeName pscredential -ArgumentList "contoso\administrator", (ConvertTo-SecureString -String $env:domain_password)
+$DomainCred = New-Object -TypeName pscredential -ArgumentList "contoso\administrator", (ConvertTo-SecureString -String $env:domain_password -AsPlainText -Force)
 
 NewDomain -ConfigurationData $ConfigData -SafemodeAdministratorCred $SafemodeCred -domainCred $DomainCred -DomainDnsAddress '10.0.8.5', '8.8.4.4'
 
