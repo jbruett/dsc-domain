@@ -6,7 +6,7 @@ environment:
   safemode_password:
     secure: 5k8aKNcdVYOvjnevHWjEZw==
 
-os: "WMF 5"
+os: 'WMF 5'
 install:
   - ps: .\Appveyor\Install.ps1
 build: false
