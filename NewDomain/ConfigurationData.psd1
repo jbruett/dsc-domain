@@ -1,7 +1,8 @@
 @{
     AllNodes = @(
         @{
-            Nodename                    = "dc1"
+            Nodename                    = "localhost"
+            DomainJoinName              = "dc1"
             Role                        = "PrimaryDC"
             DomainName                  = "contoso.com"
             RetryCount                  = 20

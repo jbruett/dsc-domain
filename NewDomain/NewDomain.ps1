@@ -61,7 +61,7 @@ configuration NewDomain {
         }
         
         xComputer DomainJoin {
-            Name       = $node.NodeName
+            Name       = $node.DomainJoinName
             DomainName = $Node.DomainName
             Credential = $domainCred
         }
