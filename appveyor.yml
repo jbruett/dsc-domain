@@ -1,26 +1,24 @@
 skip_commits:
   message: /updated readme.*/
+environment:
+  domain_password:
+    secure: 7V6nbDUt8+TqnlQnVdsdpw==
+  safemode_password:
+    secure: 5k8aKNcdVYOvjnevHWjEZw==
 
 os: "WMF 5"
-
 install:
   - ps: .\Appveyor\Install.ps1
-
 build: false
-
 version: '0.1.{build}'
-
 test_script:
   - ps: . .\Tests\appveyor.pester.ps1 -Test
   - ps: . .\Tests\appveyor.pester.ps1 -Finalize
-
 after_test:
   - ps: .\Appveyor\AfterTests.ps1
-
 branches:
   only:
     - master
-
 deploy:
   provider: S3
   access_key_id:
