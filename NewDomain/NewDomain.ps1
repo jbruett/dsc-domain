@@ -12,35 +12,35 @@ configuration NewDomain {
         [string[]]$DomainDnsAddress
     )
 
-    Import-DscResource -ModuleName xActiveDirectory, xTimeZone, PSDesiredStateConfiguration, xNetworking, xComputerManagement
+    Import-DscResource -ModuleName xActiveDirectory, xTimeZone, PSDesiredStateConfiguration, PSDscResources, xNetworking, xComputerManagement
 
     Node $AllNodes.NodeName 
- {
+    {
         LocalConfigurationManager {
-            ActionAfterReboot = 'ContinueConfiguration'
-            ConfigurationMode = 'ApplyOnly'
+            ActionAfterReboot  = 'ContinueConfiguration'
+            ConfigurationMode  = 'ApplyOnly'
             RebootNodeIfNeeded = $true
         }
         
         File ADFiles {
             DestinationPath = 'C:\NTDS'
-            Type = 'Directory'
-            Ensure = 'Present'
+            Type            = 'Directory'
+            Ensure          = 'Present'
         }
         
         WindowsFeature ADDSInstall {
             Ensure = "Present"
-            Name = "AD-Domain-Services"
+            Name   = "AD-Domain-Services"
         }
         
         xTimezone East {
             isSingleinstance = 'yes'
-            TimeZone = 'Eastern Standard Time'
+            TimeZone         = 'Eastern Standard Time'
         }
     }
 
     Node $AllNodes.Where{$_.Role -eq 'PrimaryDC'}.NodeName
- {
+    {
         xUser UpdateLocalAdmin {
             UserName = "Administrator"
             Password = $domainCred
@@ -49,41 +49,41 @@ configuration NewDomain {
 
         # No slash at end of folder paths
         xADDomain FirstDS {
-            DomainName = $Node.DomainName
+            DomainName                    = $Node.DomainName
             DomainAdministratorCredential = $DomainCred
             SafemodeAdministratorPassword = $SafemodeAdministratorCred
-            DatabasePath = 'C:\NTDS'
-            LogPath = 'C:\NTDS'
-            DependsOn = "[WindowsFeature]ADDSInstall", "[File]ADFiles"
+            DatabasePath                  = 'C:\NTDS'
+            LogPath                       = 'C:\NTDS'
+            DependsOn                     = "[WindowsFeature]ADDSInstall", "[File]ADFiles"
         }
     }
     
     Node $AllNodes.Where{$_.Role -ne 'PrimaryDC'}.NodeName {
         xDNSServerAddress dnsoverride {
             InterfaceAlias = 'Ethernet 2'
-            AddressFamily = 'IPV4'
-            Address = $DomainDnsAddress
-            Validate = $true
+            AddressFamily  = 'IPV4'
+            Address        = $DomainDnsAddress
+            Validate       = $true
         }
         
         xComputer DomainJoin {
-            Name = $node.NodeName
+            Name       = $node.NodeName
             DomainName = $Node.DomainName
             Credential = $DomainCred
         }
                 
         xWaitForADDomain Wait {
-            DomainName = $Node.DomainName
+            DomainName           = $Node.DomainName
             DomainUserCredential = $DomainCred
         }
         
         xADDomainController DC {
-            DomainName = $Node.DomainName
+            DomainName                    = $Node.DomainName
             DomainAdministratorCredential = $DomainCred
             SafemodeAdministratorPassword = $SafemodeAdministratorCred
-            DatabasePath = 'C:\NTDS'
-            LogPath = 'C:\NTDS'
-            DependsOn = '[xWaitForADDomain]Wait', '[WindowsFeature]ADDSInstall', '[File]ADFiles'
+            DatabasePath                  = 'C:\NTDS'
+            LogPath                       = 'C:\NTDS'
+            DependsOn                     = '[xWaitForADDomain]Wait', '[WindowsFeature]ADDSInstall', '[File]ADFiles'
         }
     }
 }
