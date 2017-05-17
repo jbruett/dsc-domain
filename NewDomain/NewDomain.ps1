@@ -12,7 +12,7 @@ configuration NewDomain {
         [string[]]$DomainDnsAddress
     )
 
-    Import-DscResource -ModuleName xActiveDirectory, xTimeZone, PSDesiredStateConfiguration, PSDscResources, xNetworking, xComputerManagement
+    Import-DscResource -ModuleName xActiveDirectory, xTimeZone, PSDesiredStateConfiguration, xPSDSCs, xNetworking, xComputerManagement
 
     Node $AllNodes.NodeName 
     {
