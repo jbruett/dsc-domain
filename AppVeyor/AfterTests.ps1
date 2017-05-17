@@ -12,9 +12,7 @@ Get-Item -Path "$ProjectRoot\userdata.ps1",
 "$ProjectRoot\xNetworking",
 "$ProjectRoot\xComputerManagement",
 "$ProjectRoot\xPSDesiredStateConfiguration",
-"$ProjectRoot\xPSDSCs" | Compress-Archive -DestinationPath $ProjectRoot\DomainMof.zip
+"$ProjectRoot\xPSDSC" | Compress-Archive -DestinationPath $ProjectRoot\DomainMof.zip
 
 #Publish zip as artifact
 Push-AppveyorArtifact $ProjectRoot\DomainMof.zip -Verbose
-
-#update
