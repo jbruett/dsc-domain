@@ -1,10 +1,19 @@
 @{
     AllNodes = @(
         @{
-            Nodename                    = "localhost"
-            DomainJoinName              = "dc1"
+            NodeName   = "*"
+            DomainName = "contoso.com"
+        }
+        @{
+            NodeName                    = "dc1"
             Role                        = "PrimaryDC"
-            DomainName                  = "contoso.com"
+            RetryCount                  = 20
+            RetryIntervalSec            = 30
+            PsDscAllowPlainTextPassword = $true
+        }
+        @{
+            NodeName                    = "dc2"
+            Role                        = "SecondaryDC"
             RetryCount                  = 20
             RetryIntervalSec            = 30
             PsDscAllowPlainTextPassword = $true

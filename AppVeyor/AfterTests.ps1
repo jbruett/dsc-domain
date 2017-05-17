@@ -6,7 +6,7 @@ Main -OutputPath $ProjectRoot -ConfigurationData '.\NewDomain\ConfigurationData.
 
 #Create a Zip from the Mof output (Include Modules)
 Get-Item -Path "$ProjectRoot\userdata.ps1",
-"$ProjectRoot\NewDomain\localhost.mof",
+"$ProjectRoot\NewDomain\*.mof",
 "$ProjectRoot\xActiveDirectory",
 "$ProjectRoot\xTimeZone",
 "$ProjectRoot\xNetworking",
