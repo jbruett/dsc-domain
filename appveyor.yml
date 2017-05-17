@@ -25,10 +25,10 @@ artifacts:
 deploy:
   provider: S3
   access_key_id:
-    secure: qWXc5bw/IvA59IACTLx0HUn5M8cUuOKLQ3JEczfyDY0=
+    secure: mw5RjE4E+r1HCV7guq6Y+9lOKYre7n3gq+XseuQhErg=
   secret_access_key:
-    secure: 6ivsBUdqJkVP/0qkLLF4E1q4uLJDcT/G8NCwddbiBakV/32GemiesxR+3AmUTfmh
+    secure: EV9ycmKbo6Lv8tiYeFIqtYqjwq9jGZzFbvE78K7YwL1w8GRl63GjIzVqtwAI5HEw
   bucket: jb2w-powershell-dsc-mofs
-  folder:
+  folder: 
   region: us-west-2
   artifact: zip
