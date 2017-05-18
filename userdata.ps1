@@ -14,11 +14,8 @@ Function Get-CurrentInstanceTag() {
 
 $CurrentTags = Get-CurrentInstanceTag
 
-#Temp <== remove this line later and change it with getting own tag etc
-Rename-Item C:\windows\temp\NewDomain.mof -NewName localhost.mof
-
 #Apply DSC Configuration
-Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force -ComputerName localhost
+Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force
 
 #Stop all transcription
 Stop-Transcript
