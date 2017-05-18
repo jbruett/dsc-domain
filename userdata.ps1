@@ -2,7 +2,7 @@ $Timestamp = Get-date -f yyyy_MM_dd-hh-mm-ss
 Start-Transcript -Path C:\Userdata_$Timestamp.txt
 
 #Move required modules into PSModulePath
-Move-Item 'C:\Program Files\WindowsPowerShell\Modules\xActiveDirectory', 'C:\Program Files\WindowsPowerShell\Modules\xPSDesiredStateConfiguration', 'C:\Program Files\WindowsPowerShell\Modules\xTimeZone', 'C:\Program Files\WindowsPowerShell\Modules\xNetworking', 'C:\Program Files\WindowsPowerShell\Modules\xComputerManagement' -Destination 'C:\Program Files\WindowsPowerShell\Modules\'
+Move-Item 'C:\Windows\Temp\xActiveDirectory', 'C:\Windows\Temp\xPSDesiredStateConfiguration', 'C:\Windows\Temp\xTimeZone', 'C:\Windows\Temp\xNetworking', 'C:\Windows\Temp\xComputerManagement' -Destination 'C:\Program Files\WindowsPowerShell\Modules\'
 
 Function Get-CurrentInstanceTag() {
 
