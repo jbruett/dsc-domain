@@ -15,7 +15,7 @@ for ($i = 0; $i -lt $tags.length; $i++) {
     }
 }
 
-invoke-command -scriptblock {winrm set winrm/config/client @{TrustedHosts = "$env:computername;$servername"}}
+Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value "$env:computername,$servername" -force
 
 #Apply DSC Configuration
 Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force
