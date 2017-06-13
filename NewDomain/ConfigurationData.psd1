@@ -2,17 +2,17 @@
     AllNodes = @(
         @{
             NodeName   = "*"
-            DomainName = "contoso.com"
+            DomainName = "domain1.local"
         }
         @{
-            NodeName                    = "dc1"
+            NodeName                    = "base-dc1"
             Role                        = "PrimaryDC"
             RetryCount                  = 20
             RetryIntervalSec            = 30
             PsDscAllowPlainTextPassword = $true
         }
         @{
-            NodeName                    = "dc2"
+            NodeName                    = "base-dc2"
             Role                        = "SecondaryDC"
             RetryCount                  = 20
             RetryIntervalSec            = 30

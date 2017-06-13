@@ -4,15 +4,18 @@ Start-Transcript -Path C:\Userdata_$Timestamp.txt
 #Move required modules into PSModulePath
 Move-Item 'C:\Windows\Temp\xActiveDirectory', 'C:\Windows\Temp\xPSDesiredStateConfiguration', 'C:\Windows\Temp\xTimeZone', 'C:\Windows\Temp\xNetworking', 'C:\Windows\Temp\xComputerManagement' -Destination 'C:\Program Files\WindowsPowerShell\Modules\'
 
-Function Get-CurrentInstanceTag() {
+$instanceId = (Invoke-WebRequest "http://169.254.169.254/latest/meta-data/instance-id" -UseBasicParsing).content
+$tags = get-ec2tag -Filter @{name = 'resource-id'; value = $instanceId} | select-object key, value
 
-    #Gets all instance tags for the current instance
-    $instanceId = Invoke-WebRequest "http://169.254.169.254/latest/meta-data/instance-id" -UseBasicParsing
-    $versionTag = Get-EC2Tag | Where-Object {$Psitem.ResourceId -eq $instanceId} | Select-Object Key, Value
-    return $versiontag
+#Get servername from name tag
+$servername = [string]::empty
+for ($i = 0; $i -lt $tags.length; $i++) {
+    if ($tags[$i].key -eq 'Name') {
+        $i; $servername = $tags[$i].value
+    }
 }
 
-$CurrentTags = Get-CurrentInstanceTag
+invoke-command -scriptblock {winrm set winrm/config/client @{TrustedHosts = "$env:computername;$servername"}}
 
 #Apply DSC Configuration
 Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force
