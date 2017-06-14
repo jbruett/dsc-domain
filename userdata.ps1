@@ -10,16 +10,25 @@ $ipaddress = get-netadapter | where-object -Property status -eq -value 'up' | se
 
 $tags = get-ec2tag -Filter @{name = 'resource-id'; value = $instanceId} | select-object key, value
 
-#Get servername from name tag
+#Get servername and role from name tag
 $servername = [string]::empty
+$role_name = [string]::empty
+
 for ($i = 0; $i -lt $tags.length; $i++) {
     if ($tags[$i].key -eq 'Name') {
-        $i; $servername = $tags[$i].value
+        $servername = $tags[$i].value
+    }
+    if ($tags[$i].key -eq 'role') {
+        $role_name = $tags[$i].value
     }
 }
 
 Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value "$env:computername,$servername" -force
 add-content -path 'c:\windows\system32\drivers\etc\hosts' -value "$ipaddress $env:computername $servername"
+
+if ($role_name -ne [string]::empty) {
+    Rename-Item C:\windows\temp\$($role_name).mof -NewName localhost.mof
+}
 
 #Apply DSC Configuration
 Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force

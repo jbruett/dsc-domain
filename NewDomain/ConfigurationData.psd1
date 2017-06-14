@@ -5,14 +5,14 @@
             DomainName = "domain1.local"
         }
         @{
-            NodeName                    = "base-dc1"
+            NodeName                    = "primary-dc"
             Role                        = "PrimaryDC"
             RetryCount                  = 20
             RetryIntervalSec            = 30
             PsDscAllowPlainTextPassword = $true
         }
         @{
-            NodeName                    = "base-dc2"
+            NodeName                    = "secondary-dc"
             Role                        = "SecondaryDC"
             RetryCount                  = 20
             RetryIntervalSec            = 30
