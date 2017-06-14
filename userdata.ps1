@@ -5,8 +5,7 @@ Start-Transcript -Path C:\Userdata_$Timestamp.txt
 Move-Item 'C:\Windows\Temp\xActiveDirectory', 'C:\Windows\Temp\xPSDesiredStateConfiguration', 'C:\Windows\Temp\xTimeZone', 'C:\Windows\Temp\xNetworking', 'C:\Windows\Temp\xComputerManagement' -Destination 'C:\Program Files\WindowsPowerShell\Modules\'
 
 $instanceId = (Invoke-WebRequest "http://169.254.169.254/latest/meta-data/instance-id" -UseBasicParsing).content
-
-$ipaddress = get-netadapter | where-object -Property status -eq -value 'up' | select -first 1  | get-netipaddress -AddressFamily IPv4 | Select-Object -ExpandProperty ipaddress
+#$ipaddress = get-netadapter | where-object -Property status -eq -value 'up' | select -first 1  | get-netipaddress -AddressFamily IPv4 | Select-Object -ExpandProperty ipaddress
 
 $tags = get-ec2tag -Filter @{name = 'resource-id'; value = $instanceId} | select-object key, value
 
@@ -23,11 +22,12 @@ for ($i = 0; $i -lt $tags.length; $i++) {
     }
 }
 
-Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value "$env:computername,$servername" -force
-add-content -path 'c:\windows\system32\drivers\etc\hosts' -value "$ipaddress $env:computername $servername"
+#Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value "$env:computername,$servername" -force
+#add-content -path 'c:\windows\system32\drivers\etc\hosts' -value "$ipaddress $env:computername $servername"
 
 if ($role_name -ne [string]::empty) {
     Rename-Item C:\windows\temp\$($role_name).mof -NewName localhost.mof
+    Rename-Item C:\windows\temp\$($role_name).meta.mof -NewName localhost.mof
 }
 
 #Apply DSC Configuration
