@@ -31,7 +31,7 @@ if ($role_name -ne [string]::empty) {
 }
 
 #Apply DSC Configuration
-Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force
+Start-DscConfiguration -path C:\windows\temp\ -Verbose -wait -force -computername localhost
 
 #Stop all transcription
 Stop-Transcript
