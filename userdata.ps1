@@ -27,7 +27,7 @@ for ($i = 0; $i -lt $tags.length; $i++) {
 
 if ($role_name -ne [string]::empty) {
     Rename-Item C:\windows\temp\$($role_name).mof -NewName localhost.mof
-    Rename-Item C:\windows\temp\$($role_name).meta.mof -NewName localhost.mof
+    Rename-Item C:\windows\temp\$($role_name).meta.mof -NewName localhost.meta.mof
 }
 
 #Apply DSC Configuration
